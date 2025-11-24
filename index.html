@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Memorama</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- Barra título -->
+    <div class="titulo-box">
+      <img src="titulo.png" alt="Título" class="title-image">
+    </div>
+
+    <!-- Contenedor de cartas -->
+    <div class="cards-container">
+      <div class="grid" id="gameGrid"></div>
+    </div>
+
+  </div>
+
+  <script>
+    const images = [
+      "img1.jpg","img2.jpg","img3.jpg","img4.jpg",
+      "img5.jpg","img6.jpg","img7.jpg","img8.jpg"
+    ];
+
+    let cards = [...images, ...images];
+    cards.sort(() => Math.random() - 0.5);
+
+    const grid = document.getElementById("gameGrid");
+    let firstCard = null;
+    let block = false;
+
+    cards.forEach(img => {
+      const card = document.createElement("div");
+      card.classList.add("card");
+
+      card.innerHTML = `
+        <div class="card-face card-back"></div>
+        <div class="card-face card-front" style="background-image: url('${img}')"></div>
+      `;
+
+      card.addEventListener("click", () => {
+        if (block || card.classList.contains("flip")) return;
+
+        card.classList.add("flip");
+
+        if (!firstCard) {
+          firstCard = card;
+        } else {
+          block = true;
+          let img1 = firstCard.querySelector(".card-front").style.backgroundImage;
+          let img2 = card.querySelector(".card-front").style.backgroundImage;
+
+          if (img1 === img2) {
+            firstCard = null;
+            block = false;
+          } else {
+            setTimeout(() => {
+              firstCard.classList.remove("flip");
+              card.classList.remove("flip");
+              firstCard = null;
+              block = false;
+            }, 900);
+          }
+        }
+      });
+
+      grid.appendChild(card);
+    });
+  </script>
+
+</body>
+</html>
