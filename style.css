@@ -175,6 +175,15 @@ body {
 @media (max-width: 600px) {
     .grid { grid-template-columns: repeat(2, 1fr); gap: 4px; }
     .card { max-width: 120px; }
+    /* Ajuste para evitar scroll excesivo */
+    .cards-container {
+        height: auto;
+        max-height: calc(100vh - 100px); /* deja espacio para título */
+    }
+    .container {
+        padding: 10px 10px 0 10px;
+        gap: 10px;
+    }
 }
 
 @media (min-width: 601px) and (max-width: 1499px) {
