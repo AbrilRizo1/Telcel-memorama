@@ -91,3 +91,47 @@ function resizeCards() {
     c.style.height = `${cardHeight}px`;
   });
 }
+function flipCard(card) {
+  if(block || card.classList.contains('flip')) return;
+  card.classList.add('flip');
+
+  if(!firstCard) firstCard = card;
+  else {
+    block = true;
+    let img1 = firstCard.querySelector('.card-front').style.backgroundImage;
+    let img2 = card.querySelector('.card-front').style.backgroundImage;
+
+    if(img1 === img2){
+      firstCard = null;
+      block = false;
+      checkVictory(); // Revisamos si todas las cartas están volteadas
+    } else {
+      setTimeout(() => {
+        firstCard.classList.remove('flip');
+        card.classList.remove('flip');
+        firstCard = null;
+        block = false;
+      }, 900);
+    }
+  }
+}
+
+function checkVictory() {
+  const allFlipped = document.querySelectorAll('.card.flip').length;
+  const total = document.querySelectorAll('.card').length;
+  if(allFlipped === total){
+    const congrats = document.getElementById('congrats');
+    congrats.style.display = 'flex';
+
+    // Esperamos unos milisegundos para que corra la animación
+    setTimeout(() => {
+      congrats.style.opacity = 1;
+    }, 50);
+
+    // Redirigir después de 2 segundos
+    setTimeout(() => {
+      window.location.href = "https://abrilrizo1.github.io/telcel/";
+    }, 2000);
+  }
+}
+
