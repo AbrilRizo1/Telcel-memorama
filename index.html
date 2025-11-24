@@ -8,7 +8,14 @@
 </head>
 <body>
 
-  <div class="container">
+  <!-- Animación inicial -->
+  <div id="intro">
+    <h1 class="welcome-text">Bienvenidos</h1>
+    <img src="reno.png" alt="Reno" class="reno">
+  </div>
+
+  <!-- Contenedor principal del juego -->
+  <div class="container" id="game" style="display:none;">
 
     <!-- Barra título -->
     <div class="titulo-box">
@@ -23,6 +30,13 @@
   </div>
 
   <script>
+    // Mostrar juego después de la animación
+    setTimeout(() => {
+      document.getElementById('intro').style.display = 'none';
+      document.getElementById('game').style.display = 'flex';
+    }, 2500);
+
+    // Código del memorama
     const images = [
       "img1.jpg","img2.jpg","img3.jpg","img4.jpg",
       "img5.jpg","img6.jpg","img7.jpg","img8.jpg"
